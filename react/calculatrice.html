@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@latest/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+
+function Form() {
+        const [resultat, setResultat] = React.useState(0);
+        const [n1, setN1] = React.useState('');
+        const [n2, setN2] = React.useState('');
+        const [operation, setOperation] = React.useState('+');
+
+        const handleChange1 = (e) => {
+            const {name, value} = e.target;
+            setN1(value);
+        }
+
+        const handleChange2 = (e) => {
+            const {name, value} = e.target;
+            setN2(value);
+        }
+
+        const reset = () => {
+            setResultat(0);
+        }
+
+        const handleSubmit = (e) => {
+            e.preventDefault();
+            if(!isNaN(n1) && !isNaN(n2)){
+                setResultat(eval(n1 + operation + n2))
+            }else{
+                setResultat('please enter a number')
+            }
+        }
+
+            return (
+                <React.Fragment>
+                    <form onSubmit={handleSubmit}>
+                        <p><input onChange={handleChange1} type="text" name="n1" value={n1}/></p>
+                        <select value={operation} onChange={e => setOperation(e.target.value)}>
+                            <option value="+">+</option>
+                            <option value="-">-</option>
+                            <option value="*">×</option>
+                            <option value="/">÷</option>
+                            </select>
+                        <p><input onChange={handleChange2} type="text" name="n2" value={n2}/></p>
+                        <p><button type="submit">Calcul</button></p>
+                        <p><button type="reset">reset</button></p>
+                        <p>{resultat}</p>
+                    </form>
+                </React.Fragment>
+            )
+}
+
+function App(props){
+    return (
+        <div>
+            <Form />
+        </div>
+    )
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(< App />);
+</script>
+</body>
+</html>

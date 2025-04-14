@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@latest/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+
+    // données
+    const products = [
+        { title: 'Chou', isFruit: false, id: 1, color: 'darkgreen' },
+        { title: 'Ail', isFruit: false, id: 2, color: 'brown' },
+        { title: 'Pomme', isFruit: true, id: 3, color: 'red' },
+    ];
+
+function Fruits() {
+    
+    return ( 
+    <div>
+        {products.filter(product => product.isFruit).map((p, i) => <p style={{color : p.color}} key={i}>{p.title}</p>) }
+    </div>
+    )
+}
+
+function Legumes() {
+    return ( <div>
+        {products.filter(product => product.isFruit != true).map((p, i) => <p style={{color : p.color}} key={i}>{p.title}</p>) }
+    </div> 
+    )
+}
+
+
+
+function App() {
+    
+    //const even = fruits.filter(n => n % 1 === 0) && legumes.filter(n => n % 1 === 0);
+    //console.log(even); // [2, 4, 6]
+    return (
+        <div>
+            <h1>Fruits</h1>
+            <Fruits/>
+            <h1>Legumes</h1>
+            <Legumes/>
+        </div>
+    );
+}
+   ReactDOM.createRoot(document.getElementById('root')).render(< App />);
+</script>
+</body>
+</html>
